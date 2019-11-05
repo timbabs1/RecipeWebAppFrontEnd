@@ -1,11 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import {
     Form,
     Input,
     Alert,
     Checkbox,
-    Button
+    Button,
+    Card,
+    Row,
 } from 'antd';
 import { relativeTimeThreshold } from 'moment';
 
@@ -125,55 +128,59 @@ class RegistrationForm extends React.Component {
         };
 
         return (
-            <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-                <Form.Item label="Username" hasFeedback>
-                    {getFieldDecorator('username', {
-                        rules: [
-                            {
-                                required: true,
-                                message: 'Please input your Username!',
-                            },
-                        ],
-                    })(<Input />)}
-                </Form.Item>
-                <Form.Item label="Password" hasFeedback>
-                    {getFieldDecorator('password', {
-                        rules: [
-                            {
-                                required: true,
-                                message: 'Please input your password',
-                            },
-                            {
-                                min: 6,
-                                message: 'password should be at least 6 characters long!',
-                            },
-                            {
-                                validator: this.validateToNextPassword,
-                            },
-                        ],
-                    })(<Input.Password />)}
-                </Form.Item>
-                <Form.Item label="Confirm Password" hasFeedback>
-                    {getFieldDecorator('passwordConfirmation', {
-                        rules: [
-                            {
-                                required: true,
-                                message: 'Please confirm your password',
-                            },
-                            {
-                                validator: this.compareToFirstPassword,
-                            },
-                        ],
-                    })(<Input.Password onBlur={this.handleConfirmBlur} />)}
-                </Form.Item>
-                <Form.Item {...tailFormItemLayout}>
-                    <Button type="primary" htmlType="submit">
-                        Register
-                    </Button>
-                </Form.Item>
-                {this.state.showSuccess ? <Alert message="account created successfully" type="success" /> :null}
-                {this.state.showError ? <Alert message={this.state.errorMessage} type="error" /> :null}
-            </Form>
+            <Row type="flex" justify="space-aroud" align="center">
+                <Card title="Signup" align="center" style={{ width: 460}}  >
+                    <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+                        <Form.Item label="Username" hasFeedback>
+                            {getFieldDecorator('username', {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message: 'Please input your Username!',
+                                    },
+                                ],
+                            })(<Input />)}
+                        </Form.Item>
+                        <Form.Item label="Password" hasFeedback>
+                            {getFieldDecorator('password', {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message: 'Please input your password',
+                                    },
+                                    {
+                                        min: 6,
+                                        message: 'password should be at least 6 characters long!',
+                                    },
+                                    {
+                                        validator: this.validateToNextPassword,
+                                    },
+                                ],
+                            })(<Input.Password />)}
+                        </Form.Item>
+                        <Form.Item label="Confirm Password" hasFeedback>
+                            {getFieldDecorator('passwordConfirmation', {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message: 'Please confirm your password',
+                                    },
+                                    {
+                                        validator: this.compareToFirstPassword,
+                                    },
+                                ],
+                            })(<Input.Password onBlur={this.handleConfirmBlur} />)}
+                        </Form.Item>
+                        <Form.Item {...tailFormItemLayout}>
+                            <Button type="primary" htmlType="submit">
+                                Register
+                            </Button>
+                        </Form.Item>
+                        {this.state.showSuccess ? <Alert message="account created successfully" type="success" /> :null}
+                        {this.state.showError ? <Alert message={this.state.errorMessage} type="error" /> :null}
+                    </Form>
+                </Card>
+            </Row>
         );
     }
 }

@@ -1,4 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
+import { Card, Row } from 'antd';
+
+
 
 import {
     Form,
@@ -107,39 +112,43 @@ class LoginForm extends React.Component {
         };
 
         return (
-            <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-                <Form.Item label="Username" hasFeedback validateStatus={this.state.responseStatus}>
-                    {getFieldDecorator('username', {
-                        rules: [
-                            {
-                                required: true,
-                                message: 'Please input your Username!',
-                            },
-                        ],
-                    })(<Input onChange={this.handleEmail} />)}
-                </Form.Item>
-                <Form.Item label="Password" hasFeedback  validateStatus={this.state.responseStatus}>
-                    {getFieldDecorator('password', {
-                        rules: [
-                            {
-                                required: true,
-                                message: 'Please input your password',
-                            },
-                            {
-                                min: 6,
-                                message: 'password should be at least 6 characters long!',
-                            },
-                        ],
-                    })(<Input.Password />)}
-                </Form.Item>
-                <Form.Item {...tailFormItemLayout}>
-                    <Button type="primary" htmlType="submit">
-                        Login
-                    </Button>
-                </Form.Item>
-                {this.state.showSuccess ? <Alert message="account created successfully" type="success" /> :null}
-                {this.state.showError ? <Alert message={"Error code " + this.state.errorCode + " " + this.state.errorMessage} type="error" /> :null}
-            </Form>
+            <Row type="flex" justify="space-aroud" align="center">
+                <Card title="Login" align="center" style={{ width: 420}}  >
+                    <Form {...formItemLayout} onSubmit={this.handleSubmit} align="center">
+                        <Form.Item label="Username" hasFeedback validateStatus={this.state.responseStatus}>
+                            {getFieldDecorator('username', {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message: 'Please input your Username!',
+                                    },
+                                ],
+                            })(<Input onChange={this.handleEmail} />)}
+                        </Form.Item>
+                        <Form.Item label="Password" hasFeedback  validateStatus={this.state.responseStatus}>
+                            {getFieldDecorator('password', {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message: 'Please input your password',
+                                    },
+                                    {
+                                        min: 6,
+                                        message: 'password should be at least 6 characters long!',
+                                    },
+                                ],
+                            })(<Input.Password />)}
+                        </Form.Item>
+                        <Form.Item {...tailFormItemLayout}>
+                            <Button type="primary" htmlType="submit">
+                                Login
+                            </Button>
+                        </Form.Item>
+                        {this.state.showSuccess ? <Alert message="account created successfully" type="success" /> :null}
+                        {this.state.showError ? <Alert message={"Error code " + this.state.errorCode + " " + this.state.errorMessage} type="error" /> :null}
+                    </Form>
+                </Card>
+            </Row>
         );
     }
 }

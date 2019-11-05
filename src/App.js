@@ -1,9 +1,11 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Link, NavLink } from 'react-router-dom';
 import logo from './logo.svg';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import Hello from './components/Hello';
 import './App.css';
+// import './components/css/login.css';
 
 class App extends React.Component {
   constructor(props){
@@ -40,10 +42,24 @@ class App extends React.Component {
       whatToRender = <Signup view={this.changeView.bind(this)} />
     }
     return (
-
-    <div style={{ background: '#ECECEC', padding: '30px' }}>
-      {whatToRender}
+      <Router>    
+      <div style={{align: "right", padding: '20px' }}>
+      <NavLink  to="/login" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Login</NavLink>
+                <NavLink exact to="/signup" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Sign Up</NavLink>
     </div>
+
+    <Route path="/login" component={Login} />
+    <Route path="/signup" component={Signup} />
+
+    
+
+{/* <div className="PageSwitcher">
+                <NavLink to="/login" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Login</NavLink>
+                <NavLink exact to="/signup" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Sign Up</NavLink>
+      {/* {whatToRender} */}
+    {/* </div> */}
+
+    </Router>
     );   
     }
   }   
