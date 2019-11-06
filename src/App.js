@@ -5,14 +5,14 @@ import Signup from './components/Signup';
 import Login from './components/Login';
 import Hello from './components/Hello';
 import './App.css';
-// import './components/css/login.css';
+
 
 class App extends React.Component {
   constructor(props){
     super(props);
 
     this.state = {
-      currentView : 'login',
+      currentView : '',
       isLoggedin: false
     }
   }
@@ -32,7 +32,18 @@ class App extends React.Component {
       //TODO
     }
     else if(this.state.currentView === "login"){
-      whatToRender = <Login view={this.changeView.bind(this)}/> 
+      whatToRender = 
+        <div>
+          <Router>    
+            <div style={{align: "right", padding: '20px' }}>
+            <NavLink  to="/login" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Login</NavLink>
+            <NavLink exact to="/signup" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Sign Up</NavLink>
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
+          </div>
+          </Router>
+          <Login view={this.changeView.bind(this)}/> 
+        </div>
     }
 
     else if(this.state.currentView === "hello"){
@@ -42,24 +53,17 @@ class App extends React.Component {
       whatToRender = <Signup view={this.changeView.bind(this)} />
     }
     return (
-      <Router>    
-      <div style={{align: "right", padding: '20px' }}>
-      <NavLink  to="/login" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Login</NavLink>
-                <NavLink exact to="/signup" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Sign Up</NavLink>
-    </div>
-
-    <Route path="/login" component={Login} />
-    <Route path="/signup" component={Signup} />
-
-    
-
-{/* <div className="PageSwitcher">
-                <NavLink to="/login" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Login</NavLink>
-                <NavLink exact to="/signup" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Sign Up</NavLink>
-      {/* {whatToRender} */}
-    {/* </div> */}
-
-    </Router>
+      <div style={{ background: '#ECECEC', padding: '30px'}}>
+        <Router>    
+            <div style={{align: "right", padding: '20px' }}>
+            <NavLink  to="/login" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Login</NavLink>
+            <NavLink exact to="/signup" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Sign Up</NavLink>
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
+          </div>
+          </Router>
+        {whatToRender}
+      </div>
     );   
     }
   }   
