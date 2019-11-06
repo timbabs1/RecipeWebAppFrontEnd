@@ -12,7 +12,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      currentView : '',
+      currentView : 'login',
       isLoggedin: false
     }
   }
@@ -32,17 +32,18 @@ class App extends React.Component {
       //TODO
     }
     else if(this.state.currentView === "login"){
-      whatToRender = 
+      whatToRender =
         <div>
           <Router>    
             <div style={{align: "right", padding: '20px' }}>
             <NavLink  to="/login" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Login</NavLink>
-            <NavLink exact to="/signup" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Sign Up</NavLink>
+            <NavLink exact to="/signup" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Sign Up
+            </NavLink>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
           </div>
           </Router>
-          <Login view={this.changeView.bind(this)}/> 
+          {/* <Login view={this.changeView.bind(this)}/>  */}
         </div>
     }
 
@@ -50,18 +51,18 @@ class App extends React.Component {
       whatToRender = <Hello name='Babz'/>
     }
     else if(this.state.currentView === "signup"){
-      whatToRender = <Signup view={this.changeView.bind(this)} />
+      //  whatToRender = <Signup view={this.changeView.bind(this)} />
     }
     return (
       <div style={{ background: '#ECECEC', padding: '30px'}}>
-        <Router>    
+        {/* <Router>    
             <div style={{align: "right", padding: '20px' }}>
             <NavLink  to="/login" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Login</NavLink>
             <NavLink exact to="/signup" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Sign Up</NavLink>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
           </div>
-          </Router>
+          </Router> */}
         {whatToRender}
       </div>
     );   
