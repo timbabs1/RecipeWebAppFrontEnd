@@ -132,10 +132,6 @@ class LoginForm extends React.Component {
                                         required: true,
                                         message: 'Please input your password',
                                     },
-                                    {
-                                        min: 6,
-                                        message: 'password should be at least 6 characters long!',
-                                    },
                                 ],
                             })(<Input.Password />)}
                         </Form.Item>
