@@ -59,12 +59,12 @@ class App extends React.Component {
     else if(this.state.currentView === "login"){
       whatToRender = 
       <div>
-        <Router>
-      <div className="PageSwitcher">
-        <NavLink to="/login" activeClassName="PageSwitcher_Item--Active" className="PageSwitcher_Item">Login</NavLink>
-        <NavLink exact to="/signup" activeClassName="PageSwitcher_Item--Active" className="PageSwitcher_Item">Sign Up</NavLink>
-      </div>    
-          <div style={{align:"right", padding: '20px'}}>
+      <Router>
+          <div className="PageSwitcher">
+          <NavLink to="/login" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Login</NavLink>
+          <NavLink exact to="/signup" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Sign Up</NavLink>
+          </div>   
+          <div>
           <Route path="/login" render={props => (<Login {...props} view={this.changeView.bind(this)}/>)}/>
           <Route path="/Signup" render={props => (<Signup {...props} view={this.changeView.bind(this)}/>)}/>
           <Redirect exact from="/" to="/login" />
