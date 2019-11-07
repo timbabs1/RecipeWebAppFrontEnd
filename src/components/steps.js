@@ -91,10 +91,10 @@ class IngredientsForm extends React.Component {
             recipeId: data.recipeId,
             categoryId: data.categoryId
         });
-        /* this.props.view({
+        this.props.view({
           recipeId: this.state.recipeId,
           categoryId: this.state.categoryId
-      }) */
+      })
     } else {
         //handle errors
         this.setState({
@@ -174,7 +174,3 @@ class IngredientsForm extends React.Component {
 
 const Ingredients = Form.create({ name: 'ingredients' })(IngredientsForm);
 export default Ingredients;
-//ReactDOM.render(<WrappedDynamicFieldSet />, mountNode);
-
-/* const WrappedDynamicFieldSet = Form.create({ name: 'dynamic_form_item' })(DynamicFieldSet);
-ReactDOM.render(<WrappedDynamicFieldSet />, mountNode); */

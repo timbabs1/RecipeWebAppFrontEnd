@@ -18,7 +18,8 @@ class App extends React.Component {
       isLoggedin: false,
       username: '',
       password:'',
-      recipeId:''
+      recipeId:'',
+      categoryId: ''
     }
   }
 
@@ -35,10 +36,20 @@ class App extends React.Component {
     this.setState({
       currentView: 'ingredients',
       isLoggedin: true,
-      recipeId: data.recipeId
+      recipeId: data.recipeId,
+      categoryId: data.categoryId
     })
     
   }
+
+  /* changeView2(data){
+    this.setState({
+      currentView: 'steps',
+      isLoggedin: true,
+      recipeId: data.recipeId,
+      categoryId: data.categoryId
+    })
+  } */
 
   render() {
     let whatToRender;
@@ -53,7 +64,11 @@ class App extends React.Component {
     }
 
     else if(this.state.currentView === "ingredients"){
-      whatToRender = <Ingredients recipeId={this.state.recipeId} username={this.state.username} password={this.state.password}/>
+      whatToRender = <Ingredients view={this.changeView3.bind(this)} categoryId={this.state.categoryId} recipeId={this.state.recipeId} username={this.state.username} password={this.state.password}/>
+    }
+
+    else if(this.state.currentView === "steps"){
+      whatToRender = <Ingredients categoryId={this.state.categoryId} recipeId={this.state.recipeId} username={this.state.username} password={this.state.password}/>
     }
 
     else if(this.state.currentView === "login"){

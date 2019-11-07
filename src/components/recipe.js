@@ -24,7 +24,8 @@ class RecipeForm extends React.Component {
         errorMessage: "", //the error message to display to the user after server rejects action
         username: this.props.username,
         password: this.props.password,
-        recipeId: 48
+        recipeId: '',
+        categoryId: ''
     };
 
     handleSubmit = e => {
@@ -73,10 +74,12 @@ class RecipeForm extends React.Component {
                 showSuccess:true,
                 showError : false,
                 responseStatus: "success",
-                recipeId: data.recipeData
+                recipeId: data.recipeId,
+                categoryId: data.categoryId
             });
             this.props.view({
-                recipeId: this.state.recipeId
+                recipeId: this.state.recipeId,
+                categoryId: this.state.categoryId
             })
         } else {
             //handle errors
