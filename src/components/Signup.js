@@ -1,9 +1,13 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+
 import {
     Form,
     Input,
     Alert,
+    Card,
+    Row,
     Checkbox,
     Button
 } from 'antd';
@@ -41,16 +45,19 @@ class RegistrationForm extends React.Component {
                 }).then(res => {
                     if(res.ok){
                         this.setState({addedSuccessfully:true})
-                        this.props.view()
+                        this.props.view({
+                            username: values.username,
+                            password: values.password
+                        });
                     }else {
                         this.setState({
                             addedSuccessfully:false,
-                            errorcode: res.status
+                            errorcode: res.status,
+                            showError:true
                         });
-
                         return res.json()
                     }
-                }).then(data => this.checkResponse(data))
+                    }).then(data => this.checkResponse(data))
             }
         })
     };
@@ -78,14 +85,14 @@ class RegistrationForm extends React.Component {
     };
 
     checkResponse = (data) => {
-
         if(this.state.addedSuccessfully){
             //this.props.form.resetFields();
             this.setState({
                 showSuccess:true,
                 showError : false
             });
-        } else {
+            console.log(data)
+        }else {
             //handle errors
             this.setState({
                 errorMessage: data.message,
@@ -125,7 +132,9 @@ class RegistrationForm extends React.Component {
         };
 
         return (
-            <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+            <Row type="flex" justify="space-aroud" align="center">
+            <Card title="Signup" align="center" style={{ width: 460}}  >
+            <Form {...formItemLayout} onSubmit={this.handleSubmit} align="center">
                 <Form.Item label="Username" hasFeedback>
                     {getFieldDecorator('username', {
                         rules: [
@@ -174,6 +183,8 @@ class RegistrationForm extends React.Component {
                 {this.state.showSuccess ? <Alert message="account created successfully" type="success" /> :null}
                 {this.state.showError ? <Alert message={this.state.errorMessage} type="error" /> :null}
             </Form>
+            </Card>
+            </Row>
         );
     }
 }
