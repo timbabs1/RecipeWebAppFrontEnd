@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Form, Input, Icon, Button, Alert } from 'antd';
+import { InputNumber } from 'antd';
 
 let id = 0;
 
@@ -16,7 +17,8 @@ class IngredientsForm extends React.Component {
     errorMessage: "", //the error message to display to the user after server rejects action
     username: this.props.username,
     password: this.props.password,
-    recipeId: this.props.recipeId
+    recipeId: this.props.recipeId,
+    categoryId: this.props.categoryId
   };
   remove = k => {
     const { form } = this.props;
@@ -47,12 +49,30 @@ class IngredientsForm extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
+    this.props.form.validateFields((err, valuess) => {
+      
       if (!err) {
-        const { keys, names } = values;
-        console.log('Received values of form: ', values);
-        console.log('Merged values:', keys.map(key => names[key]));
-        console.log(values.names)
+        console.log(valuess)
+        
+        let list_of_ingredients = []
+        let n = valuess.keys.length
+        console.log(n)
+        for (let i=0; i<n; i++) {
+          console.log("Got into loop")
+          
+          let ingredients = {
+            keys : valuess.keys[i],
+            name : valuess.ingredients[i],
+            quantity : valuess.quantity[i],
+            description : valuess.description[i],
+            recipeId: this.props.recipeId,
+            categoryId: this.props.categoryId
+          }
+          list_of_ingredients.push(ingredients)
+          console.log(list_of_ingredients)
+        }
+        console.log(JSON.stringify(list_of_ingredients))
+
         fetch('http://localhost:3000/api/v1.0/ingredient',{
           method: 'POST',
           headers: {
@@ -60,7 +80,7 @@ class IngredientsForm extends React.Component {
               'Content-Type': 'application/json',
               'Authorization': 'Basic ' + window.btoa(this.state.username + ':' + this.state.password),
           },
-          body: {form_value: JSON.stringify({values}), recipe_Id: this.state.recipeId}
+          body: JSON.stringify(list_of_ingredients)
           }).then(res => {
             if(res.ok){
                 this.setState({ingredientAddedSuccessfully:true})
@@ -68,22 +88,21 @@ class IngredientsForm extends React.Component {
             }else {
                 console.log(res.status)
                 this.setState({
-                    recipeAddedSuccessfully:false,
+                    ingredientAddedSuccessfully:false,
                     errorCode: res.status,
                     errorMessage: res.statusText 
                 });
-                
                 return res.json()
             }
         }).then(data => this.checkResponse(data))
       }
-    });
+    })
   };
 
   checkResponse = (data) => {
 
-    if(this.state.recipeAddedSuccessfully){
-        this.props.form.resetFields();
+    if(this.state.ingredientAddedSuccessfully){
+        //this.props.form.resetFields();
         this.setState({
             showSuccess:true,
             showError : false,
@@ -132,8 +151,10 @@ class IngredientsForm extends React.Component {
         label={index === 0 ? 'Ingredients ' : ''}
         required={false}
         key={k}
+        hasFeedback
+        //validateStatus={this.state.responseStatus}
       >
-        {getFieldDecorator(`names[${k}]`, {
+        {getFieldDecorator(`ingredients[${k}]`, {
           validateTrigger: ['onChange', 'onBlur'],
           rules: [
             {
@@ -143,18 +164,81 @@ class IngredientsForm extends React.Component {
             },
           ],
         })(<Input placeholder="ingredient name" style={{ width: '60%', marginRight: 8 }} />)}
-        {keys.length > 1 ? (
-          <Icon
-            className="dynamic-delete-button"
-            type="minus-circle-o"
-            onClick={() => this.remove(k)}
-          />
-        ) : null}
-      </Form.Item>
+         {keys.length > 1 ? (
+      <Icon
+        className="dynamic-delete-button"
+        type="minus-circle-o"
+        onClick={() => this.remove(k)}
+      />
+    ) : null}
+      </Form.Item> 
+      
     ));
+    const formItems2 = keys.map((i, index) => (
+      <Form.Item
+          {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
+          label={index === 0 ? 'Quantity ' : ''}
+          required={false}
+          key={i}
+          //validateStatus={this.state.responseStatus}
+          >
+            {getFieldDecorator(`quantity[${i}]`, {
+              //initialValue: '1',
+              validateTrigger: ['onChange', 'onBlur'],
+              rules: [
+                {
+                  required: true,
+                  message: "Please input Ingredient quantity or delete this field.",
+                },
+              ],
+            })(<InputNumber placeholder="quantity" min={1} max={10} style={{ /* width:'40%', */ marginRight: 8 }} />)}
+            {keys.length > 1 ? (
+            <Icon
+              className="dynamic-delete-button"
+              type="minus-circle-o"
+              onClick={() => this.remove(i)}
+            />
+            ) : null}
+        </Form.Item>
+      ))
+    
+
+    const formItems3 = keys.map((d, index) => (
+      <Form.Item
+          {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
+          label={index === 0 ? 'Description ' : ''}
+          required={false}
+          key={d}
+          //validateStatus={this.state.responseStatus}
+          >
+            {getFieldDecorator(`description[${d}]`, {
+              //initialValue: '1',
+              validateTrigger: ['onChange', 'onBlur'],
+              rules: [
+                {
+                  required: true,
+                  whitespace: true,
+                  message: "Please input Ingredient description or delete this field.",
+                },
+              ],
+            })(<Input placeholder="ingredient description" style={{ width: '60%', marginRight: 8 }} />)}
+            {keys.length > 1 ? (
+            <Icon
+              className="dynamic-delete-button"
+              type="minus-circle-o"
+              onClick={() => this.remove(d)}
+            />
+            ) : null}
+        </Form.Item>
+      ))
+    
+    
     return (
       <Form onSubmit={this.handleSubmit}>
+        
         {formItems}
+        {formItems2}
+        {formItems3}
         <Form.Item {...formItemLayoutWithOutLabel}>
           <Button type="dashed" onClick={this.add} style={{ width: '60%' }}>
             <Icon type="plus" /> Add field

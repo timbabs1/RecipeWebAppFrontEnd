@@ -129,10 +129,10 @@ class RecipeForm extends React.Component {
                 <Form.Item label="Title" hasFeedback validateStatus={this.state.responseStatus}>
                     {getFieldDecorator('title', {
                         rules: [
-                            /* {
+                             {
                                 required: true,
                                 message: 'Please input your title',
-                            }, */
+                            },
                         ],
                     })(<Input onChange={this.handleEmail} />)}
                 </Form.Item>

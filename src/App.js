@@ -64,7 +64,7 @@ class App extends React.Component {
     }
 
     else if(this.state.currentView === "ingredients"){
-      whatToRender = <Ingredients view={this.changeView3.bind(this)} categoryId={this.state.categoryId} recipeId={this.state.recipeId} username={this.state.username} password={this.state.password}/>
+      whatToRender = <Ingredients categoryId={this.state.categoryId} recipeId={this.state.recipeId} username={this.state.username} password={this.state.password}/>
     }
 
     else if(this.state.currentView === "steps"){
