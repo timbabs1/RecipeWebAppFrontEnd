@@ -5,7 +5,7 @@ import { InputNumber } from 'antd';
 
 let id = 0;
 
-class IngredientsForm extends React.Component {
+class StepsForm extends React.Component {
 
   state = {
     confirmDirty: false,
@@ -108,10 +108,9 @@ class IngredientsForm extends React.Component {
             recipeId: data.recipeId,
             categoryId: data.categoryId
         });
-        /* this.props.view({
-          recipeId: this.state.recipeId,
-          categoryId: this.state.categoryId
-      }) */
+        this.props.view({
+          recipeId: this.state.recipeId
+        })
     } else {
         //handle errors
         this.setState({
@@ -219,8 +218,8 @@ class IngredientsForm extends React.Component {
   }
 }
 
-const Ingredients = Form.create({ name: 'ingredients' })(IngredientsForm);
-export default Ingredients;
+const Steps = Form.create({ name: 'steps' })(StepsForm);
+export default Steps;
 //ReactDOM.render(<WrappedDynamicFieldSet />, mountNode);
 
 /* const WrappedDynamicFieldSet = Form.create({ name: 'dynamic_form_item' })(DynamicFieldSet);

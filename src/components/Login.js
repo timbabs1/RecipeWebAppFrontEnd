@@ -114,7 +114,7 @@ class LoginForm extends React.Component {
         };
 
         return (
-            <Row type="flex" justify="space-aroud" align="center">
+            <Row type="flex" justify="space-around" align="center">
             <Card title="Login" align="center" style={{ width: 420}}  >
             <Form {...formItemLayout} onSubmit={this.handleSubmit}>
                 <Form.Item label="Username" hasFeedback validateStatus={this.state.responseStatus}>

@@ -6,6 +6,7 @@ import Login from './components/Login';
 import Hello from './components/Hello';
 import Recipe from './components/recipe';
 import Ingredients from './components/ingredients';
+import Steps from './components/steps';
 import './App.css';
 import { thisExpression } from '@babel/types';
 
@@ -42,6 +43,25 @@ class App extends React.Component {
     
   }
 
+  changeView3(data){
+    this.setState({
+      currentView: 'steps',
+      isLoggedin: true,
+      recipeId: data.recipeId,
+      categoryId: data.categoryId
+    })
+    
+  }
+
+  changeView4(data){
+    this.setState({
+      currentView: 'home',
+      isLoggedin: true,
+      recipeId: data.recipeId,
+    })
+    
+  }
+
   /* changeView2(data){
     this.setState({
       currentView: 'steps',
@@ -64,11 +84,11 @@ class App extends React.Component {
     }
 
     else if(this.state.currentView === "ingredients"){
-      whatToRender = <Ingredients categoryId={this.state.categoryId} recipeId={this.state.recipeId} username={this.state.username} password={this.state.password}/>
+      whatToRender = <Ingredients view={this.changeView3.bind(this)} categoryId={this.state.categoryId} recipeId={this.state.recipeId} username={this.state.username} password={this.state.password}/>
     }
 
     else if(this.state.currentView === "steps"){
-      whatToRender = <Ingredients categoryId={this.state.categoryId} recipeId={this.state.recipeId} username={this.state.username} password={this.state.password}/>
+      whatToRender = <Steps view={this.changeView4.bind(this)} recipeId={this.state.recipeId} username={this.state.username} password={this.state.password}/>
     }
 
     else if(this.state.currentView === "login"){
