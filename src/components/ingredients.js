@@ -110,10 +110,10 @@ class IngredientsForm extends React.Component {
             recipeId: data.recipeId,
             categoryId: data.categoryId
         });
-        /* this.props.view({
+        this.props.view({
           recipeId: this.state.recipeId,
           categoryId: this.state.categoryId
-      }) */
+        }) 
     } else {
         //handle errors
         this.setState({
