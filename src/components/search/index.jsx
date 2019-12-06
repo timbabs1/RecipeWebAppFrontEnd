@@ -25,7 +25,7 @@ class Search extends React.Component {
 
 
 fetchSearchResults = (query) => {
-    const searchUrl =  `https://api.edamam.com/search?q=${query}&app_id=e8eee3ca&app_key=9f37ced39b6203d7334bd4792f241dd4`
+    const searchUrl =  `https://api.edamam.com/search?q=${query}&app_id=e8eee3ca&app_key=d16b42a6e79081093854b6dc0b576f84`
 
     if( this.cancel ) {
         this.cancel.cancel();
