@@ -1,0 +1,96 @@
+.search {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 36px auto;
+	width: 100%;
+	max-width: 800px;
+}
+.search .title {
+    margin-bottom: 1em;
+    font-size: 27px;
+    color: base-color;
+}
+.search .content input {
+    position: relative;
+    width: 37em;
+    height: 42px;
+    border: 0;
+    border-radius: 3px;
+    box-shadow: 0px 0px 15px 3px rgba(15, 15, 15, 0.2);
+    padding: 0 16px;
+    font-size: 20px;
+    outline: 0;
+    color: base-color;
+    transition: all, 200ms ease-in-out;
+}
+.search .content input::placeholder {
+    color: base-color;
+}
+.search .content input:focus {
+    box-shadow: 0px 0px 19px 3.1px rgba(88, 159, 207, 0.835);
+}
+/* .popup {
+    width: inherit;
+    min-height: 5em;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    box-shadow: 0px 0px 15px 2px rgba(15, 15, 15, 0.2);
+    margin-top: 7px;
+    border-radius: 0px 0px 5px 5px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.popup .container .content {
+    margin-bottom: 15px;
+    height: 100%;
+    padding: 0 0 30px 0;
+}
+.popup .container .content .item {
+    height: 33px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    border-top: 0.5px solid rgba(15, 15, 15, 0.2);
+    padding: 0 16px;
+    color: #424444;
+    cursor: pointer;
+    transition: all, 230ms ease-in;
+} */
+
+/* .popup .container .content .item:last-child {
+    border-bottom: 0.5px solid rgba(15, 15, 15, 0.2);
+}
+.popup .container .content .item:hover {
+    background-color: #aacbe0 6e;
+}
+.popup .container .footer {
+    position: absolute;
+    font-size: 13px;
+    bottom: 3px;
+    width: 99%;
+    left: 0px;
+    display: flex;
+    border-top: 1px solid rgba(15, 15, 15, 0.2);
+    padding: 2px 3px;
+    color: base-color; */
+/* } */
+
+.results-container {
+	display: flex;
+	flex-flow: wrap;
+}
+
+.result-item {
+	position: relative;
+	padding: 16px;
+	border: 1px solid #898989;
+	margin: 16px;
+	text-align: center;
+	min-width: 200px;
+	box-shadow: 2px 2px 2px #898989;
+}
