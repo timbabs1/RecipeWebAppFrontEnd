@@ -160,8 +160,8 @@ const text = 'Are you sure to delete this ingredient?';
         //reference to the meta component of the card
         let Meta = Card.Meta
         //Customise the ant-design card component
-        return <div><Card  type="inner" title={this.props.title}
-                  cover={<img alt="example" src={this.props.mainImageURL} />}
+        return <div><Card  type="inner" title={this.props.title} style={{ width: '100%'}}
+                  cover={<img alt="example" src={this.props.mainImageURL} style={{ height: 320}} />}
                   actions={[
                     <Icon type="edit" key="edit" onClick={this.showModal} />,
                     <Popconfirm placement="topLeft" title={text} onConfirm={this.handleDelete} okText="Yes" cancelText="No">

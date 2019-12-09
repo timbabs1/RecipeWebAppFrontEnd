@@ -66,7 +66,7 @@ const gridStyle = {
             if (!err){
                 let stepsId=  this.props.Id
                 Object.assign(values, {imageUrl: this.state.imageUrl})
-                if (!this.state.imageUrls){
+                if (!this.state.imageUrl){
                     return  message.error("Number of Images must match number of steps with image 1 for step 1 ");
                   }
                 console.log(values)
@@ -163,8 +163,8 @@ render() {
     //reference to the meta component of the card
     let Meta = Card.Meta
     //Customise the ant-design card component
-    return <div><Card  type="inner" title={this.props.Id}
-              cover={<img alt="example" src={this.props.mainImageURL} />}
+    return <div><Card  type="inner" title={this.props.Id} style={{ width: '100%'}}
+              cover={<img alt="example" src={this.props.mainImageURL} style={{ height: 320}} />}
               actions={[
                 <Icon type="edit" key="edit" onClick={this.showModal} />,
                 <Popconfirm placement="topLeft" title={text} onConfirm={this.handleDelete} okText="Yes" cancelText="No">

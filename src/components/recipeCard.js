@@ -172,8 +172,8 @@ const { Option } = Select;
         const { getFieldDecorator } = this.props.form;
         let Meta = Card.Meta
         //Customise the ant-design card component
-        return <div><Card  type="inner" title={this.props.title}
-                  cover={<img alt="example" src={this.props.mainImageURL} onClick={this.handleClick} />}
+        return <div><Card  type="inner" title={this.props.title} style={{ width: '100%'}}
+                  cover={<img alt="example" src={this.props.mainImageURL} style={{ height: 320}} onClick={this.handleClick} />}
                   actions={[
                     <Icon type="edit" key="edit" onClick={this.showModal} />,
                     <Popconfirm placement="topLeft" title={text} onConfirm={this.handleDelete} okText="Yes" cancelText="No">
