@@ -77,6 +77,9 @@ class App extends React.Component {
     //so we create a new data and map the new items to exactly the same 
     //however we extract just a portion of the original body and use this array
     //to display home thumbnails
+    if (data.length === 0){
+      
+    }
     let data2 = data.map( item => {
 
       let shortBody = item.subtitle.substring(0, 128);
@@ -120,6 +123,7 @@ showCategory(){
       username: userdata.username,
       password: userdata.password
     })
+    console.log(userdata)
     this.api.getRecipe(userdata, this.updateRecipeData);
   }
 
