@@ -159,10 +159,12 @@ showCategory(){
   render() {
     let whatToRender;
 
-        <DbSearch username={this.state.username} password={this.state.password}/>
-      whatToRender= <div> 
+        
+      
     if(this.state.currentView === 'recipeHome'){
+      whatToRender= <div> 
                       <RecipeView items={this.state.items} colClass={6} username={this.state.username} password={this.state.password} onClick={this.handleThumbnailClicked} />
+                      <DbSearch username={this.state.username} password={this.state.password}/>
                     </div>
     }
 
@@ -176,6 +178,7 @@ showCategory(){
 
     else if(this.state.currentView === "search"){
       whatToRender = <Steps view={this.changeView4.bind(this)} username={this.state.username} password={this.state.password}/>
+    }
     else if(this.state.currentView === "recently"){
       whatToRender = <Steps view={this.changeView4.bind(this)} username={this.state.username} password={this.state.password}/>
     }
@@ -207,10 +210,6 @@ showCategory(){
           </div>
        </Router>
       </div> 
-    }
-
-    else if(this.state.currentView === "hello"){
-      whatToRender = <Hello name='Babz'/>
     }
     /* else if(this.state.currentView === "signup"){
       whatToRender = <Signup view={this.changeView.bind(this)} />
