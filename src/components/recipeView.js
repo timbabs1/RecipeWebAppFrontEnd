@@ -75,6 +75,7 @@ handleChange = value => {
                         Id = {item.ID}
                         type="inner" 
                         title={item.title}
+                        authorId = {item.authorId}
                         mainImageURL = {item.mainImageURL} 
                         categoryId= {item.categoryId} 
                         subtitle={item.subtitle}
