@@ -94,3 +94,16 @@
 	min-width: 200px;
 	box-shadow: 2px 2px 2px #898989;
 }
+
+.border{
+    border-style: solid;
+    width: 500px;
+    position: relative;
+	padding: 16px;
+	border: 1px solid black;
+	margin: 16px;
+	text-align: left;
+	min-width: 200px;
+	
+    
+}

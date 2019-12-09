@@ -1,5 +1,5 @@
 import React from "react";
-//  import "./style.css";
+  import "./search/style.css";
 // import Popup from "./popup";
 // import axios from 'axios';
 import { object } from "prop-types";
@@ -47,10 +47,17 @@ class Recently extends React.Component {
 
     render() {
 return (
-    // <div><h3>{this.state.item.id}</h3></div>,
     <ul>
          {this.state.items.map(function(item, index) {
-             return <h1>{item.title}</h1>
+             return (
+                 <div className="border">
+                        <h2>{item.title}</h2>
+                        <p>{item.DateCreated}</p>
+                 </div>
+             )
+             
+             
+             
          })}
     </ul>
 )

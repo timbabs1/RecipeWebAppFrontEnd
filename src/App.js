@@ -13,6 +13,7 @@ import { thisExpression } from '@babel/types';
 import RecipePreview from './components/RecipePreview';
 import Search from './components/search';
 import Recently from './components/Recently';
+import DbSearch from './components/search/DbSearch';
 
 class App extends React.Component {
   constructor(props){
@@ -80,8 +81,9 @@ class App extends React.Component {
 
     if(this.state.currentView === 'home'){
       whatToRender= <div>
-        <Recently username={this.state.username} password={this.state.password}/>
+        {/* <Recently username={this.state.username} password={this.state.password}/> */}
         {/* <Search username={this.state.username} password={this.state.password}/> */}
+        <DbSearch username={this.state.username} password={this.state.password}/>
                       {/* <Hello name=" Babz" />  */}
                       {/* <Recipe view={this.changeView2.bind(this)} username={this.state.username} password={this.state.password}/>  */}
                       {/* <Login view={this.changeView.bind(this)}/> */}
@@ -135,6 +137,7 @@ class App extends React.Component {
       {/* <RecipePreview /> */}
       {/* <Search /> */}
       {/* <Recently /> */}
+      {/* {<DbSearch />} */}
 
 
     </div>
