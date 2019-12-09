@@ -47,7 +47,7 @@ class RecipeForm extends React.Component {
                         'Content-Type': 'application/json',
                         'Authorization': 'Basic ' + window.btoa(this.state.username + ':' + this.state.password),
                     },
-                    body: JSON.stringify({values})
+                    // body: JSON.stringify({values})
                 }).then(res => {
                     if(res.ok){
                         this.setState({recipeAddedSuccessfully:true})

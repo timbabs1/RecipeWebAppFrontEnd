@@ -1,4 +1,5 @@
 import React from 'react';
+import Recently from './Recently';
 import { OmitProps } from 'antd/lib/transfer/renderListBody';
 import { thisExpression } from '@babel/types';
 
