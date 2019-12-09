@@ -22,7 +22,7 @@ class LoginForm extends React.Component {
         showSuccess: false, //if should we show a succesful feedback message after loggin in a user
         showError: false, //if should we show an error feedback message after logging in a user
         errorCode: 400, //to save the errorCode we received from the api server
-        responseStatus: "nothing", //the validation status of the email
+        responseStatus: "validating", //the validation status of the email
         errorMessage: "", //the error message to display to the user after server rejects action
     };
 
@@ -47,10 +47,8 @@ class LoginForm extends React.Component {
                 }).then(res => {
                     if(res.ok){
                         this.setState({loggedInSuccessfully:true})
-                        this.props.view({
-                            username: values.username,
-                            password: values.password
-                        })
+                        
+                        return res.json()
                     }else {
                         console.log(res.status)
                         this.setState({
@@ -75,6 +73,12 @@ class LoginForm extends React.Component {
                 showSuccess:true,
                 showError : false
             });
+            const { form } = this.props;
+            this.props.view({
+                username: data.username,
+                password: form.getFieldValue('password'),
+                Id : data.ID
+            })
         } else {
             //handle errors
             this.setState({
@@ -114,7 +118,7 @@ class LoginForm extends React.Component {
         };
 
         return (
-            <Row type="flex" justify="space-around" align="center">
+            <Row type="flex" justify="space-around" >
             <Card title="Login" align="center" style={{ width: 420}}  >
             <Form {...formItemLayout} onSubmit={this.handleSubmit}>
                 <Form.Item label="Username" hasFeedback validateStatus={this.state.responseStatus}>
@@ -142,7 +146,7 @@ class LoginForm extends React.Component {
                         Login
                     </Button>
                 </Form.Item>
-                {this.state.showSuccess ? <Alert message="account created successfully" type="success" /> :null}
+                {this.state.showSuccess ? <Alert message="Logged In successfully" type="success" /> :null}
                 {this.state.showError ? <Alert message={"Error code " + this.state.errorCode + " " + this.state.errorMessage} type="error" /> :null}
             </Form>
             </Card>
