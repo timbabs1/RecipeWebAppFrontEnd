@@ -1,6 +1,9 @@
 import React from 'react';
 
 import {
+    message,
+    Upload,
+    Icon,
     Form,
     Input,
     Alert,
@@ -14,6 +17,11 @@ const { Option } = Select;
 
 class RecipeForm extends React.Component {
 
+    async getBase64(img, callback) {
+        const reader = new FileReader();
+        reader.addEventListener('load', () => callback(reader.result));
+        reader.readAsDataURL(img)
+      }
     state = {
         confirmDirty: false,
         recipeAddedSuccessfully: false, //if the user is added successfully
@@ -25,7 +33,8 @@ class RecipeForm extends React.Component {
         username: this.props.username,
         password: this.props.password,
         recipeId: '',
-        categoryId: ''
+        categoryId: '',
+        profilePhoto: '',
     };
 
     handleSubmit = e => {
@@ -33,9 +42,12 @@ class RecipeForm extends React.Component {
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 //echo the values to the browswer console to make sure they are correct
+              
+                Object.assign(values, {profilePhoto: this.state.imageUrl})
                 console.log('Received values of form: ', values);
-
-                console.log(this.state.username)
+                if (!this.state.imageUrls.length < 0){
+                    return  message.error("Number of Images must match number of steps with image 1 for step 1 ");
+                  }
 
                 //here we should send a request to our server
                 //use fetch API to post the user data
@@ -91,6 +103,30 @@ class RecipeForm extends React.Component {
             });
         }
     }
+    beforeUpload(file) {
+        const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+            if (!isJpgOrPng) {
+            message.error("You can only upload JPG/PNG file!");
+            }
+            const isLt2M = file.size / 1024 / 1024 < 2;
+            if (!isLt2M) {
+            message.error("Image must smaller than 2MB!");
+            }
+            return isJpgOrPng && isLt2M;
+            }
+    handleChange = info => {
+        if (info.file.status === 'uploading') {
+            this.getBase64(info.file.originFileObj, imageUrl => {
+            this.setState({imageUrl})
+            })
+        }
+        if (info.file.status === 'done'){
+            this.getBase64(info.file.originFileObj, imageUrl => {
+            this.setState({imageUrl})
+            })
+        
+        }
+    }
 
     render() {
         const { getFieldDecorator } = this.props.form;
@@ -123,8 +159,27 @@ class RecipeForm extends React.Component {
               { type: "object", required: true, message: "Please select time!" }
             ]
         };
+        const uploadButton = (
+            <div>
+              <Icon type={this.state.loading ? 'loading' : 'plus'} />
+              <div className="ant-upload-text">Upload</div>
+            </div>
+          );
+          const { imageUrl } = this.state;
 
         return (
+            <div style={{ width: '50%', textAlign: 'center', margin: 'auto' }}>
+            <Upload
+            name="avatar"
+            listType="picture-card"
+            className="avatar-uploader"
+            showUploadList={false}
+            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+            beforeUpload={this.beforeUpload}
+            onChange={this.handleChange}
+            >
+            {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '50%', margin: 'auto' }} /> : uploadButton}
+            </Upload>
             <Form {...formItemLayout} onSubmit={this.handleSubmit}>
                 <Form.Item label="Title" hasFeedback validateStatus={this.state.responseStatus}>
                     {getFieldDecorator('title', {
@@ -179,6 +234,7 @@ class RecipeForm extends React.Component {
                 {this.state.showSuccess ? <Alert message="recipe was added successfully" type="success" /> :null}
                 {this.state.showError ? <Alert message={"Error code " + this.state.errorCode + " " + this.state.errorMessage} type="error" /> :null}
             </Form>
+            </div>
         );
     }
 }

@@ -1,0 +1,86 @@
+.header {  
+    overflow: hidden;  
+    background-color: #05386b;  
+    padding: 20px 10px;  
+    position: relative;  
+    top: 0;  
+    left:0; 
+	  width: 100%;	
+  }  
+    
+  .header a {  
+    float: left;  
+    color: white;  
+    text-align: center;  
+    padding: 12px;  
+    text-decoration: none;  
+    font-size: 18px;   
+    line-height: 25px;  
+    border-radius: 4px;  
+    
+  }  
+  
+  .header img {  
+    width: 100%; 
+    max-width:50px;
+    height: auto;
+    float: left;  
+ }  
+  
+  .header a.logo {  
+    font-size: 25px;  
+    font-weight: bold;
+    text-align: center;  
+  }  
+    
+  .header a.active {  
+    background: #5CDB95;  
+    color: white;  
+    font-weight: bold;  
+  }  
+    
+  .header-right {  
+    float: right;  
+  }  
+    
+  .header .search-container {  
+    float: left;  
+  }  
+    
+  .header input[type=text] {  
+    padding: 6px;  
+    margin-top: 8px;
+    font-size: 14px;  
+    border: none;  
+  }  
+    
+  .header .search-container button {  
+    float: right;  
+    padding: 6px 10px;  
+    margin-top: 8px;  
+    margin-right: 32px;  
+    background: #ddd;  
+    font-size: 14px;  
+    border: none;  
+    cursor: pointer;  
+  }  
+    
+  .header .search-container button:hover {  
+    background: #ccc;  
+  }  
+  
+  @media screen and (max-width: 600px) {  
+    
+    .header img{  
+        display: block;  
+        float: none;  
+        margin: auto;  
+    }  
+    .header a {  
+      float: none;  
+      display: block;  
+      text-align: center;  
+    } 
+    
+     
+  }  
