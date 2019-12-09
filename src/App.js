@@ -3,19 +3,23 @@ import { BrowserRouter as Router, Route, Link, NavLink, Redirect } from 'react-r
 import logo from './logo.svg';
 import Signup from './components/Signup';
 import Login from './components/Login';
-import Hello from './components/Hello';
-import Recipe from './components/Recipe';
-import Ingredients from './components/Ingredients';
-import Steps from './components/Steps'
-import ReceipePreview from './components/RecipePreview'
+import Recipe from './components/recipe';
+import Ingredients from './components/ingredients';
+import Steps from './components/steps';
+import CallAPI from './CallAPI';
 import './App.css';
 import { thisExpression } from '@babel/types';
 import RecipePreview from './components/RecipePreview';
 import Search from './components/search';
 import Recently from './components/Recently';
 import DbSearch from './components/search/DbSearch';
+import RecipeView from './components/recipeView';
+import RecipeView2 from './components/recipeView2';
+import Header from './components/header';
+import Viewcategory from './components/viewByCategory'
 
 class App extends React.Component {
+  api = new CallAPI();
   constructor(props){
     super(props);
 
@@ -25,17 +29,102 @@ class App extends React.Component {
       username: '',
       password:'',
       recipeId:'',
-      categoryId: ''
+      categoryId: '',
+      items : [],
+      homeItems: [],
+      currentRecipe: null,
+      clicked : false
     }
+    this.updateRecipeData = this.updateRecipeData.bind(this);
+    this.handleThumbnailClicked = this.handleThumbnailClicked.bind(this);
+    this.showHome = this.showHome.bind(this);
   }
+
+   //we will pass this function to card component so we will handle which thumbnail was clicked
+   handleThumbnailClicked(key){
+        
+    //ignore if we are showing something else otherthan the grid of thumbnails 
+    /* if(this.state.currentView !== "home")
+    return; */
+    
+    let len = this.state.items.length;
+    console.log(key)
+
+    
+    //iterate through the items and find the one matching the clicked id
+    for(let i = 0; i < len ; i++){
+
+    if(this.state.items[i].ID === key){
+
+      console.log(this.state.items[i].ID)
+      console.log(key)
+        
+        let item = Object.assign({}, this.state.items[i]);
+        console.log(item)
+
+        this.setState({
+        currentView: "recipe1",
+        currentRecipe: item,
+        recipeId: this.state.items[i].ID,
+        clicked : true
+        });
+    }
+    }
+}
+
+  updateRecipeData(err, data){
+
+    if(err){
+        return;
+    }
+    //when displaying home screen we need to show only portion of the body
+    //so we create a new data and map the new items to exactly the same 
+    //however we extract just a portion of the original body and use this array
+    //to display home thumbnails
+    let data2 = data.map( item => {
+
+      let shortBody = item.subtitle.substring(0, 128);
+
+      return {
+        id: item.ID,
+        title: item.title,
+        authorId : item.authorId,
+        subtitle: shortBody,
+        createdDate: item.DateCreated,
+        photo: item.mainImageURL
+      }
+    })
+      this.setState({
+        items : data,
+        homeItems: data2
+      }) 
+      console.log(data)
+      this.showHome();
+    }
+
+showHome(){
+  //in case we were showing an recipe, remove it from the state
+  if(this.state.currentRecipe !== null)
+    this.setState({currentRecipe: null});
+  
+  this.setState({currentView:"recipeHome"});
+}
+
+showRecipe(){
+  this.setState({currentView:"recipeCreate"})
+}
+
+showCategory(){
+  this.setState({currentView:"viewcategory"})
+}
 
   changeView(userdata){
     this.setState({
-      currentView: 'home',
       isLoggedin: true,
       username: userdata.username,
       password: userdata.password
     })
+    this.api.getRecipe(userdata, this.updateRecipeData);
   }
 
   changeView2(data){
@@ -58,37 +147,23 @@ class App extends React.Component {
     
   }
 
-  changeView4(data){
+  changeView4(userdata){
     this.setState({
-      currentView: 'home',
+      currentView: 'recipeHome',
       isLoggedin: true,
-      recipeId: data.recipeId,
+      recipeId: userdata.recipeId,
     })
-    
+    this.api.getRecipe(userdata, this.updateRecipeData);
   }
-
-  /* changeView2(data){
-    this.setState({
-      currentView: 'steps',
-      isLoggedin: true,
-      recipeId: data.recipeId,
-      categoryId: data.categoryId
-    })
-  } */
 
   render() {
     let whatToRender;
 
-    if(this.state.currentView === 'home'){
-      whatToRender= <div>
-        {/* <Recently username={this.state.username} password={this.state.password}/> */}
-        {/* <Search username={this.state.username} password={this.state.password}/> */}
         <DbSearch username={this.state.username} password={this.state.password}/>
-                      {/* <Hello name=" Babz" />  */}
-                      {/* <Recipe view={this.changeView2.bind(this)} username={this.state.username} password={this.state.password}/>  */}
-                      {/* <Login view={this.changeView.bind(this)}/> */}
+      whatToRender= <div> 
+    if(this.state.currentView === 'recipeHome'){
+                      <RecipeView items={this.state.items} colClass={6} username={this.state.username} password={this.state.password} onClick={this.handleThumbnailClicked} />
                     </div>
-      //TODO
     }
 
     else if(this.state.currentView === "ingredients"){
@@ -101,10 +176,20 @@ class App extends React.Component {
 
     else if(this.state.currentView === "search"){
       whatToRender = <Steps view={this.changeView4.bind(this)} username={this.state.username} password={this.state.password}/>
-    }
-
     else if(this.state.currentView === "recently"){
       whatToRender = <Steps view={this.changeView4.bind(this)} username={this.state.username} password={this.state.password}/>
+    }
+    else if(this.state.currentView === "recipe1"){
+      let tempArr = [this.state.currentRecipe]
+      whatToRender = <RecipeView2 clicked={this.state.clicked} colClass={6} rowLength={1} recipeId={this.state.recipeId} items={tempArr} username={this.state.username} password={this.state.password} colClass="col-m-6" rowLength={1} onClick={this.handleThumbnailClicked}/>
+    }
+
+    else if(this.state.currentView === "recipeCreate"){
+      whatToRender = <Recipe view={this.changeView2.bind(this)} changeview={this.showRecipe.bind(this)} username={this.state.username} password={this.state.password}/>
+    }
+
+    else if(this.state.currentView === "viewcategory"){
+      whatToRender = <Viewcategory view={this.changeView2.bind(this)} changeview={this.showRecipe.bind(this)} username={this.state.username} password={this.state.password}/>
     }
 
     else if(this.state.currentView === "login"){
@@ -126,13 +211,14 @@ class App extends React.Component {
 
     else if(this.state.currentView === "hello"){
       whatToRender = <Hello name='Babz'/>
-     }
-     else if(this.state.currentView === "signup"){
-      whatToRender = <Signup view={this.changeView.bind(this)} />
     }
+    /* else if(this.state.currentView === "signup"){
+      whatToRender = <Signup view={this.changeView.bind(this)} />
+    } */
     return (
 
     <div>
+      <Header title="RecipeHome" onClickTitle={this.showHome.bind(this)} viewRecipeCategory={this.showCategory.bind(this)} showRecipe1={this.showRecipe.bind(this)} />
       {whatToRender}
       {/* <RecipePreview /> */}
       {/* <Search /> */}
