@@ -31,6 +31,7 @@ class CallAPI {
             })
     }
     
+    
 }
 
 export default CallAPI;

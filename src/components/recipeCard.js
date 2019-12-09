@@ -181,6 +181,8 @@ const { Option } = Select;
                   ]}
                   >
                   Click image to view recipe and recipe ingredients and steps
+                  Category:{this.props.categoryId}
+                  Author ID: {this.props.authorId}
                     <Meta
                     description={this.props.subtitle}
                     className="This is the description"

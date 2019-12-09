@@ -45,7 +45,7 @@ class RecipeForm extends React.Component {
               
                 Object.assign(values, {profilePhoto: this.state.imageUrl})
                 console.log('Received values of form: ', values);
-                if (!this.state.imageUrls.length < 0){
+                if (!this.state.imageUrl.length < 0){
                     return  message.error("Number of Images must match number of steps with image 1 for step 1 ");
                   }
 
