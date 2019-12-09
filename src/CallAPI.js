@@ -21,17 +21,16 @@ class CallAPI {
                         'Content-Type': 'application/json',
                         'Authorization': 'Basic ' + window.btoa(logininfo.username + ':' + logininfo.password),
                     }
-        })
-        .then(res => {
+        }).then(res => {
             console.log(logininfo.username)
             return res.json()
         .then(data => callback(null, data))
-        })
-        .catch( (error) => {
+        }).catch( (error) => {
             console.log("An error has occurred:" + error)
             callback(error)
             })
     }
+    
     
 }
 

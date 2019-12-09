@@ -3,12 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/react-fontawesome": "^0.1.8",
     "antd": "^3.24.3",
+    "axios": "^0.19.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-fontawesome": "^1.7.1",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.2.0"
+    "react-scripts": "3.2.0",
+    "throttle-debounce": "^2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

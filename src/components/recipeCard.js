@@ -1,7 +1,7 @@
 import React from 'react';
 //import './Card.css';
 //import './tooltip.css';
-import FontAwesome from 'react-fontawesome';
+// import FontAwesome from 'react-fontawesome';
 import { Card, Col, Row} from 'antd'
 
 import { Upload, message, Popconfirm, Form, Input, Icon, Button, Alert, Pagination, Modal, Select } from 'antd';
@@ -181,6 +181,8 @@ const { Option } = Select;
                   ]}
                   >
                   Click image to view recipe and recipe ingredients and steps
+                  Category:{this.props.categoryId}
+                  Author ID: {this.props.authorId}
                     <Meta
                     description={this.props.subtitle}
                     className="This is the description"

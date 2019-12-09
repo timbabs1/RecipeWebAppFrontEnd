@@ -1,0 +1,35 @@
+import React from "react";
+// import "./style.css";
+// import Popup from "./popup";
+import axios from 'axios';
+import { object } from "prop-types";
+import { Result } from "antd";
+// import renderEmpty from "antd/lib/config-provider/renderEmpty";
+
+
+class Recently extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: this.props.username,
+      password: this.props.password,
+      results: {},
+    };
+  };
+
+  async componentDidMount() {
+    const { data } = await axios.get ('http://localhost:3000/api/v1.0/recent/sweet')
+    const username = 'MJ24'
+    const password = 'hello123'
+    const basicAuth = 'Basic ' + btoa(username + ':' + password)
+    .then(res => {
+    console.log(res)
+    })
+  }
+  render() {
+      return(null)
+  }
+
+  }
+
+  export default Recently

@@ -45,10 +45,7 @@ class RegistrationForm extends React.Component {
                 }).then(res => {
                     if(res.ok){
                         this.setState({addedSuccessfully:true})
-                        this.props.view({
-                            username: values.username,
-                            password: values.password
-                        });
+                        return res.json()
                     }else {
                         this.setState({
                             addedSuccessfully:false,
@@ -91,7 +88,13 @@ class RegistrationForm extends React.Component {
                 showSuccess:true,
                 showError : false
             });
-            console.log(data)
+            console.log(data.userData[0].ID)
+            const { form } = this.props;
+            this.props.view({
+                username: data.userData[0].username,
+                password: form.getFieldValue('password'),
+                Id : data.userData[0].ID
+            })
         }else {
             //handle errors
             this.setState({

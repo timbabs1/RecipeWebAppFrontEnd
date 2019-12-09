@@ -9,6 +9,10 @@ import Steps from './components/steps';
 import CallAPI from './CallAPI';
 import './App.css';
 import { thisExpression } from '@babel/types';
+import RecipePreview from './components/RecipePreview';
+import Search from './components/search';
+import Recently from './components/Recently';
+import DbSearch from './components/search/DbSearch';
 import RecipeView from './components/recipeView';
 import RecipeView2 from './components/recipeView2';
 import Header from './components/header';
@@ -77,6 +81,9 @@ class App extends React.Component {
     //so we create a new data and map the new items to exactly the same 
     //however we extract just a portion of the original body and use this array
     //to display home thumbnails
+    if (data.length === 0){
+      
+    }
     let data2 = data.map( item => {
 
       let shortBody = item.subtitle.substring(0, 128);
@@ -120,6 +127,7 @@ showCategory(){
       username: userdata.username,
       password: userdata.password
     })
+    console.log(userdata)
     this.api.getRecipe(userdata, this.updateRecipeData);
   }
 
@@ -155,9 +163,12 @@ showCategory(){
   render() {
     let whatToRender;
 
+        
+      
     if(this.state.currentView === 'recipeHome'){
       whatToRender= <div> 
                       <RecipeView items={this.state.items} colClass={6} username={this.state.username} password={this.state.password} onClick={this.handleThumbnailClicked} />
+                      <DbSearch username={this.state.username} password={this.state.password}/>
                     </div>
     }
 
@@ -169,6 +180,12 @@ showCategory(){
       whatToRender = <Steps view={this.changeView4.bind(this)} recipeId={this.state.recipeId} username={this.state.username} password={this.state.password}/>
     }
 
+    else if(this.state.currentView === "search"){
+      whatToRender = <Steps view={this.changeView4.bind(this)} username={this.state.username} password={this.state.password}/>
+    }
+    else if(this.state.currentView === "recently"){
+      whatToRender = <Steps view={this.changeView4.bind(this)} username={this.state.username} password={this.state.password}/>
+    }
     else if(this.state.currentView === "recipe1"){
       let tempArr = [this.state.currentRecipe]
       whatToRender = <RecipeView2 clicked={this.state.clicked} colClass={6} rowLength={1} recipeId={this.state.recipeId} items={tempArr} username={this.state.username} password={this.state.password} colClass="col-m-6" rowLength={1} onClick={this.handleThumbnailClicked}/>
@@ -179,7 +196,7 @@ showCategory(){
     }
 
     else if(this.state.currentView === "viewcategory"){
-      whatToRender = <Viewcategory view={this.changeView2.bind(this)} changeview={this.showRecipe.bind(this)} username={this.state.username} password={this.state.password}/>
+      whatToRender = <Viewcategory onClick={this.handleThumbnailClicked} changeview={this.showRecipe.bind(this)} username={this.state.username} password={this.state.password}/>
     }
 
     else if(this.state.currentView === "login"){
@@ -198,11 +215,20 @@ showCategory(){
        </Router>
       </div> 
     }
+    /* else if(this.state.currentView === "signup"){
+      whatToRender = <Signup view={this.changeView.bind(this)} />
+    } */
     return (
 
     <div>
       <Header title="RecipeHome" onClickTitle={this.showHome.bind(this)} viewRecipeCategory={this.showCategory.bind(this)} showRecipe1={this.showRecipe.bind(this)} />
       {whatToRender}
+      {/* <RecipePreview /> */}
+      {/* <Search /> */}
+      {/* <Recently /> */}
+      {/* {<DbSearch />} */}
+
+
     </div>
     );   
     }

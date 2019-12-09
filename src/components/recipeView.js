@@ -1,7 +1,7 @@
 import React from 'react';
 //import './Card.css';
 //import './tooltip.css';
-import FontAwesome from 'react-fontawesome';
+// import FontAwesome from 'react-fontawesome';
 import { Card, Col, Row} from 'antd'
 
 import { Form, Input, Icon, Button, Alert, Pagination } from 'antd';
@@ -75,6 +75,7 @@ handleChange = value => {
                         Id = {item.ID}
                         type="inner" 
                         title={item.title}
+                        authorId = {item.authorId}
                         mainImageURL = {item.mainImageURL} 
                         categoryId= {item.categoryId} 
                         subtitle={item.subtitle}
