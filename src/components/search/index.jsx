@@ -13,6 +13,8 @@ class Search extends React.Component {
       query: '',
       results: {},
       message: '',
+      currentPage: 1,
+      resultsPerPage: 5,
     }
       this.cancel = '';
   };
@@ -83,10 +85,45 @@ fetchSearchResults = (query) => {
   }
 
   render() {
-    const { query } = this.state;
+    const { query, currentPage, resultsPerPage, results } = this.state;
     
+    const indexOfLastResults = currentPage * resultsPerPage;
+    const indexOfFirstResults = indexOfLastResults - resultsPerPage;
+    const resultsPage = results.slice(indexOfFirstResults, indexOfLastResults);
+
+    const renderResults = resultsPage.map((results, index)=>{
+      return <li key={index}>{results}</li>;
+
+    });
+
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.ceil(results.length / resultsPerPage); i++) {
+      pageNumbers.push(i);
+    }
+// salut
+    const renderPageNumbers = pageNumbers.map(number => {
+      return (
+        <li
+          key={number}
+          id={number}
+          onClick={this.handleClick}
+        >
+          {number}
+        </li>
+      );
+    });
+
     return (
-      <div className="search">
+      <div>
+        <ul>
+          {renderResults}
+        </ul>
+        <ul id="page-numbers">
+          {renderPageNumbers}
+        </ul>
+      </div>,
+    
+    <div className="search">
         <div className="search-container">
           <div className="title">Search Recipe</div>
           <div className="content">
@@ -104,6 +141,11 @@ fetchSearchResults = (query) => {
         </div>
       </div>
     );
+  // }
+// }
+
+//bonjour
+    
   }
 }
 export default Search

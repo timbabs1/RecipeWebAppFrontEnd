@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Header.css';
-import FontAwesome from 'react-fontawesome';
+// import FontAwesome from 'react-fontawesome';
 import { Button } from 'antd'
 
 import logo from './img/recipe.jpg';

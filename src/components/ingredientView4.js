@@ -1,7 +1,7 @@
 import React from 'react';
 //import './Card.css';
 //import './tooltip.css';
-import FontAwesome from 'react-fontawesome';
+// import FontAwesome from 'react-fontawesome';
 import { Card, Col, Row} from 'antd'
 
 import { Form, Input, Icon, Button, Alert, Modal } from 'antd';
